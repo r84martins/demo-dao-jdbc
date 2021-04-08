@@ -10,15 +10,22 @@ public class Program2 {
 
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 				
-		/*System.out.println("=== TEST 1: Department INSERT ===");
-		Department newDepartment = new Department(12, "Clothes");
+		System.out.println("=== TEST 1: Department INSERT ===");
+		Department newDepartment = new Department(14, "Clothes");
 		departmentDao.insert(newDepartment);
-		System.out.println("Inserted! New id = " + newDepartment.getId());*/
+		System.out.println("Inserted! New id = " + newDepartment.getId());
 		
-		System.out.println("=== TEST 2: department findById ===");
-		Department department = departmentDao.findById(3);		
+		System.out.println("\n=== TEST 2: department findById ===");
+		Department department = departmentDao.findById(11);		
 		//System.out.println(obj);
 		System.out.println(department);
+		
+		System.out.println("\n=== TEST 3: seller update ===");
+		department = departmentDao.findById(1);
+		department.setName("Computers");
+		departmentDao.update(department);
+		System.out.println("Update completed");
+		
 	}
 
 }

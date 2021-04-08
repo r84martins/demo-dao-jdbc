@@ -59,17 +59,16 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 	@Override
 	public void update(Department obj) {
 		
-		/*PreparedStatement st = null;		
+		PreparedStatement st = null;		
 		try {
 			st = conn.prepareStatement(
 				
 					"UPDATE department "
-					+ "SET  Id = ?, Name = ? " 
+					+ "SET Name = ? " 
 					+ "WHERE Id = ?"
 					);
-			
-			st.setInt(1, obj.getId());
-			st.setString(2, obj.getName());
+			st.setString(1, obj.getName());
+			st.setInt(2, obj.getId());
 			
 			st.executeUpdate();	
 			
@@ -79,7 +78,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		}
 		finally {
 			DB.closeStatement(st);			
-		}*/
+		}
 	}
 
 	@Override
@@ -104,9 +103,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 			rs = st.executeQuery();
 			if (rs.next()) {
 				
-				Department dep = instantiateDepartment(rs);				
-				//Seller obj = instantiateSeller(rs, dep);
-				
+				Department dep = instantiateDepartment(rs);								
 				return dep;				
 			}
 			return null;			
