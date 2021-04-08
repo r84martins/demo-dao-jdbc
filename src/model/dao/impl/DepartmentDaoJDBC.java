@@ -11,6 +11,7 @@ import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
+import model.entities.Seller;
 
 public class DepartmentDaoJDBC implements DepartmentDao{
 
@@ -57,8 +58,28 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 	}
 	@Override
 	public void update(Department obj) {
-		// TODO Auto-generated method stub
 		
+		/*PreparedStatement st = null;		
+		try {
+			st = conn.prepareStatement(
+				
+					"UPDATE department "
+					+ "SET  Id = ?, Name = ? " 
+					+ "WHERE Id = ?"
+					);
+			
+			st.setInt(1, obj.getId());
+			st.setString(2, obj.getName());
+			
+			st.executeUpdate();	
+			
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);			
+		}*/
 	}
 
 	@Override
@@ -69,8 +90,43 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 
 	@Override
 	public Department findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement(
+					"SELECT Id, Name as DepName "
+					+ "FROM department "
+					+ "WHERE Id = ?"	);
+			
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				
+				Department dep = instantiateDepartment(rs);				
+				//Seller obj = instantiateSeller(rs, dep);
+				
+				return dep;				
+			}
+			return null;			
+		}
+		catch(SQLException e) {
+			throw new DbException (e.getMessage());
+		}		
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+	
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		
+		Department dep = new Department();
+		dep.setName(rs.getString("DepName"));
+		dep.setId(rs.getInt("Id"));
+		
+		return dep;
 	}
 
 	@Override
