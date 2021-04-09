@@ -24,7 +24,7 @@ public class Program2 {
 		System.out.println("Inserted! New id = " + newDepartment.getId());*/
 		
 		System.out.println("\n=== TEST 2: department findById ===");
-		Department department = departmentDao.findById(11);		
+		Department department = departmentDao.findById(2);		
 		//System.out.println(obj);
 		System.out.println(department);
 		
@@ -40,14 +40,19 @@ public class Program2 {
 		
 		department = new Department(id, null);		
 		List<Seller> list = sellerDao.findByDepartment(department);
-		System.out.println("Delete completed");
-		
+				
 		if(list.isEmpty()) {
 			departmentDao.deleteById(id);
 			System.out.println("Delete completed");
 		}
 		else {
-			System.out.println("Delete denied. Referetial integrity!!");
+			System.out.println("Delete denied. Referential integrity - Key foreign)!!");
+		}
+		
+		System.out.println("\n=== TEST 5: department findAll ===");
+		List<Department> listDep = departmentDao.findAll();
+		for (Department obj : listDep) {
+			System.out.println(obj);
 		}
 		
 		sc.close();		
