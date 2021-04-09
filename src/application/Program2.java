@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,10 +19,15 @@ public class Program2 {
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		SellerDao sellerDao = DaoFactory.createSellerDao();
 				
-		/*System.out.println("=== TEST 1: Department INSERT ===");
-		Department newDepartment = new Department(14, "Clothes");
+		System.out.println("=== TEST 1: Department INSERT ===");
+		System.out.println("Enter Id number: ");
+		int id = sc.nextInt();
+		System.out.println("Enter Deparment name: ");
+		String DepName = sc.next();
+		
+		Department newDepartment = new Department(id, DepName);
 		departmentDao.insert(newDepartment);
-		System.out.println("Inserted! New id = " + newDepartment.getId());*/
+		System.out.println("Inserted! New id = " + newDepartment.getId());
 		
 		System.out.println("\n=== TEST 2: department findById ===");
 		Department department = departmentDao.findById(2);		
@@ -36,7 +42,7 @@ public class Program2 {
 		
 		System.out.println("\n=== TEST 4: Department delete ===");
 		System.out.println("Enter id for delete test: ");
-		int id = sc.nextInt();
+		id = sc.nextInt();
 		
 		department = new Department(id, null);		
 		List<Seller> list = sellerDao.findByDepartment(department);
